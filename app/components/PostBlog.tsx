@@ -9,11 +9,11 @@ import { useEffect } from "react";
 import { RootState, AppDispatch } from "../../store";
 
 import { fetchPosts } from "../../store/slice/blogSlice";
-import { BlogPost } from "../../store/slice/blogSlice";
+// import { BlogPost } from "../../store/slice/blogSlice";
 
 import { MutatingDots } from "react-loader-spinner";
 
-// import { BlogCard } from "../lib/interfaces";
+import { BlogCard } from "../lib/interfaces";
 
 
 
@@ -28,8 +28,8 @@ export function PostBlog() {
     dispatch(fetchPosts());
   }, [dispatch]);
 
-  // const localPosts: BlogCard[] = JSON.parse(localStorage.getItem('posts') || '[]');
-  const localPosts: BlogPost[] = JSON.parse(localStorage.getItem('posts') || '[]'); 
+  const localPosts: BlogCard[] = JSON.parse(localStorage.getItem('posts') || '[]');
+  // const localPosts: BlogPost[] = JSON.parse(localStorage.getItem('posts') || '[]'); 
   
   return (
     <>
