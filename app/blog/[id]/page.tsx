@@ -1,4 +1,3 @@
-// app/blog/[id].tsx
 "use client";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -10,8 +9,6 @@ import { PortableText } from "@portabletext/react";
 import { fetchPosts } from "../../../store/slice/blogSlice";
 
 const BlogPost = ({ params }: { params: { id: string } }) => {
-  
-  // console.log("params.id: ", params.id)
   
   const dispatch = useDispatch<AppDispatch>();
   const blogPosts = useSelector((state: RootState) => state.blog.posts);
@@ -26,9 +23,6 @@ const BlogPost = ({ params }: { params: { id: string } }) => {
 
   const post = blogPosts.find((post) => post.id === params.id);
 
-  // console.log("post:" , post);
-  // console.log("blog post:" , blogPosts);
-  
   if (status === "loading") {
     return (
       <div className="fixed inset-0 flex justify-center items-center w-full h-full">

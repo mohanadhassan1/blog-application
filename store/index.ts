@@ -6,7 +6,6 @@ const store = configureStore({
   reducer: {
     blog: blogReducer,
     localPosts: createReducer,
-
   },
 });
 
