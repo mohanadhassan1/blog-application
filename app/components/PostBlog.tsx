@@ -10,6 +10,7 @@ import { RootState, AppDispatch } from "../../store";
 
 import { fetchPosts } from "../../store/slice/blogSlice";
 // import { BlogPost } from "../../store/slice/blogSlice";
+import { loadPostsFromLocalStorage } from "../../store/slice/createSlice";
 
 import { MutatingDots } from "react-loader-spinner";
 
@@ -21,16 +22,28 @@ export function PostBlog() {
 
   const dispatch = useDispatch<AppDispatch>();
   const blogPosts = useSelector((state: RootState) => state.blog.posts);
+  const localPosts = useSelector((state: RootState) => state.localPosts.posts);
   const status = useSelector((state: RootState) => state.blog.status);
   const error = useSelector((state: RootState) => state.blog.error);
 
-  useEffect(() => {
-    dispatch(fetchPosts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchPosts());
+  // }, [dispatch]);
 
-  const localPosts: BlogCard[] = JSON.parse(localStorage.getItem('posts') || '[]');
+  // const localPosts: BlogCard[] = JSON.parse(localStorage.getItem('posts') || '[]');
   // const localPosts: BlogPost[] = JSON.parse(localStorage.getItem('posts') || '[]'); 
   
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchPosts());
+    }
+  }, [dispatch, status]);
+
+  useEffect(() => {
+    dispatch(loadPostsFromLocalStorage());
+  }, [dispatch]);
+
+
   return (
     <>
       {status === "loading" && (

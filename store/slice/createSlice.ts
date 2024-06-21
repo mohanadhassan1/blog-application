@@ -14,7 +14,7 @@ interface BlogPostsState {
 }
 
 const initialState: BlogPostsState = {
-  posts: JSON.parse(localStorage.getItem('posts') || '[]'),
+  posts: [],
   status: 'idle',
   error: null,
 };
@@ -36,6 +36,14 @@ const localPostsSlice = createSlice({
       state.posts = action.payload;
       localStorage.setItem('posts', JSON.stringify(state.posts));
     },
+    loadPostsFromLocalStorage: (state) => {
+      if (typeof window !== 'undefined') {
+        const storedPosts = localStorage.getItem('posts');
+        if (storedPosts) {
+          state.posts = JSON.parse(storedPosts);
+        }
+      }
+    },
   },
   extraReducers: builder => {
     // builder
@@ -54,5 +62,5 @@ const localPostsSlice = createSlice({
   },
 });
 
-export const { addPost, setPosts } = localPostsSlice.actions;
+export const { addPost, setPosts, loadPostsFromLocalStorage } = localPostsSlice.actions;
 export default localPostsSlice.reducer;
