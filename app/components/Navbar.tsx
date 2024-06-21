@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 import { Button } from "@/components/ui/button";
-import { Plus, Moon, Sun, DiamondPlus } from "lucide-react";
+import { Plus } from "lucide-react";
+
 const Navbar = () => {
   return (
     <div className="w-full relative flex items-center justify-between max-w-2xl mx-auto px-4 py-5">
