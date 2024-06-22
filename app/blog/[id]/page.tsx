@@ -3,25 +3,36 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { RootState, AppDispatch } from "../../../store";
-import { Card, CardContent } from "@/components/ui/card";
 import { MutatingDots } from "react-loader-spinner";
 import { PortableText } from "@portabletext/react";
 import { fetchPosts } from "../../../store/slice/blogSlice";
+import { loadPostsFromLocalStorage } from "../../../store/slice/createSlice";
 
 const BlogPost = ({ params }: { params: { id: string } }) => {
   
   const dispatch = useDispatch<AppDispatch>();
   const blogPosts = useSelector((state: RootState) => state.blog.posts);
+  const localPosts = useSelector((state: RootState) => state.localPosts.posts);
   const status = useSelector((state: RootState) => state.blog.status);
   const error = useSelector((state: RootState) => state.blog.error);
-
+  
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchPosts());
     }
   }, [dispatch, status]);
 
-  const post = blogPosts.find((post) => post.id === params.id);
+  useEffect(() => {
+    dispatch(loadPostsFromLocalStorage()); 
+  }, [dispatch]);
+
+  // const post = blogPosts.find((post) => post.id === params.id);
+
+  const allPosts = [...localPosts, ...blogPosts];
+  const post = allPosts.find((post) => post.id === params.id);
+
+
+  console.log("post: ", post);
 
   if (status === "loading") {
     return (

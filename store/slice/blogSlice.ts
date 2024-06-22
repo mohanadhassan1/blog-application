@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 interface BlogPost {
   id: string;
@@ -29,8 +29,7 @@ export const fetchPosts = createAsyncThunk<BlogPost[], void, { rejectValue: stri
       await delay(2000);
       const response = await axios.get<BlogPost[]>('https://jsonplaceholder.typicode.com/posts');
       return response.data.map((post: any) => ({
-        // id: uuidv4(),
-        id: post.id,
+        id: uuidv4(),
         title: post.title,
         body: post.body,
       })) as BlogPost[];
