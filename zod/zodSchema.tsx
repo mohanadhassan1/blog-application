@@ -3,5 +3,6 @@
 import { z } from "zod"
 
 const formSchema = z.object({
-  username: z.string().min(2).max(50),
+  title: z.string().min(3).max(50),
+  body: z.string().min(5).max(50000),
 })

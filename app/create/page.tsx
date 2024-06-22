@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,8 +16,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster"
 
-import { RootState, AppDispatch } from "../../store";
+import { AppDispatch } from "../../store";
 import { addPost } from "../../store/slice/createSlice";
 
 const FormSchema = z.object({
@@ -30,6 +31,7 @@ const FormSchema = z.object({
 });
 
 export default function CreateForm() {
+
   const dispatch = useDispatch<AppDispatch>();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -85,6 +87,7 @@ export default function CreateForm() {
           <Button type="submit">Submit</Button>
         </form>
       </Form>
+      <Toaster/>
     </div>
   );
 }

@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { RootState, AppDispatch } from "../../../store";
 import { MutatingDots } from "react-loader-spinner";
-import { PortableText } from "@portabletext/react";
 import { fetchPosts } from "../../../store/slice/blogSlice";
 import { loadPostsFromLocalStorage } from "../../../store/slice/createSlice";
 
@@ -26,13 +25,8 @@ const BlogPost = ({ params }: { params: { id: string } }) => {
     dispatch(loadPostsFromLocalStorage()); 
   }, [dispatch]);
 
-  // const post = blogPosts.find((post) => post.id === params.id);
-
   const allPosts = [...localPosts, ...blogPosts];
   const post = allPosts.find((post) => post.id === params.id);
-
-
-  console.log("post: ", post);
 
   if (status === "loading") {
     return (
@@ -72,7 +66,6 @@ const BlogPost = ({ params }: { params: { id: string } }) => {
         </h1>
 
         <div className="mt-16 prose prose-blue prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary">
-          {/* <PortableText  /> */}
           <p>
             {post.body}
           </p>
